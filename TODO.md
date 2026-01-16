@@ -15,9 +15,9 @@ This is the comprehensive master task list for the Abang Colek Brand OS. It cons
 - [x] **Project Initialization**: Setup React 19 + Vite + TypeScript.
 - [x] **Repository Setup**: Git init and GitHub remote linkage.
 - [x] **Data Layer (Local)**: Implement `localStorage` persistence adapters.
-- [ ] **Data Layer (Cloud)**: Supabase schema basics (User, Event, Product).
+- [x] **Data Layer (Cloud)**: Supabase schema basics (User, Event, Product). (Client Initialized)
 - [x] **PWA Configuration**: `manifest.json`, Service Workers, and offline caching strategy.
-- [ ] **CI/CD Pipeline**: GitHub Actions for automated build and test.
+- [x] **CI/CD Pipeline**: GitHub Actions for automated build and test.
 
 ### 🎨 1.2 Brand Identity & Assets
 
@@ -28,7 +28,7 @@ This is the comprehensive master task list for the Abang Colek Brand OS. It cons
   - [x] Implement "Hot Red" & "Charred Black" color tokens.
   - [x] Create core UI components (Buttons, Cards, Modals).
   - [x] Integrate custom fonts (Teko, Poppins).
-- [ ] **Mascot Library**: Digitize and organize Abang Colek mascot assets.
+- [x] **Mascot Library**: Digitize and organize Abang Colek mascot assets.
 
 ---
 
@@ -51,9 +51,9 @@ This is the comprehensive master task list for the Abang Colek Brand OS. It cons
 - [x] **Content Calendar**: Schedule posts linked to events.
 - [x] **Hook Bank**: CRUD for video hooks/scripts (with Tags).
 - [x] **Shot List Builder**: Drag-and-drop or simple list for video scenes.
-- [ ] **Script Templates**: Mad-libs style script generator.
-- [ ] **Manifesto Generator**: Auto-generate rant/manifesto text.
-- [ ] **Export Pack**: One-click export of captions and hashtags.
+- [x] **Script Templates**: Mad-libs style script generator.
+- [x] **Manifesto Generator**: Auto-generate rant/manifesto text.
+- [x] **Export Pack**: One-click export of captions and hashtags.
 
 ### 🏪 2.3 Booth Operations (POS & Checklist)
 
@@ -118,9 +118,15 @@ This is the comprehensive master task list for the Abang Colek Brand OS. It cons
 - [x] **Architecture**: System design and stack.
 - [x] **Backlog**: Agile user stories.
 - [x] **ERP Spec**: Enterprise Resource Planning details.
-- [ ] **User Manual**: Guide for booth staff.
-- [ ] **Developer Guide**: Setup and contribution rules.
+- [x] **User Manual**: Guide for booth staff.
+- [x] **Developer Guide**: Setup and contribution rules.
 
+---
+
+> **Legend:**
+> [x] = Completed
+> [ ] = Pending
+> [~] = In Progress / Partial
 ---
 
 > **Legend:**
