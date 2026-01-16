@@ -100,6 +100,12 @@ export const presetData: BrandOSData = {
       content:
         "Structure:\nIntro spoken  Verse 1  Chorus  Chorus (crowd)  Outro\n\nNotes:\nFokus pada chant dan crowd response. Tempo: 95105 BPM.",
     },
+    {
+      id: "song-full-2min",
+      title: "Full Brand Song (2026)",
+      content:
+        "[REFERENCE TRACK]: Kasi-Lagi-Lagi.mp3\n\n[INTRO]\n*Sizzle*\nYeah…\nAbang CHO-LEK!\n\n[VERSE 1]\nDari satu CHO-LEK!, terus naik nama\nSambal CHO-LEK! hit different, yeah you feel the flame\nSekali rasa, terus lock that flow\nTak perlu explain panjang, you already know\n\n[PRE-CHORUS]\nMata berair tapi senyum jalan\nPedas naik, tangan tetap makan\nThat flavour linger, stuck in your mind\nAbang CHO-LEK!, one of a kind\n\n[CHORUS]\nABANG CHO-LEK!\nSAMBAL CHO-LEK!\nPEDAS! PADU!\n\nSEKALI RASA.\nYOU KNOW.\nPEDAS MANIS.\nSTAYS.\n\n[VERSE 2]\nEvent penuh, booth kita pack\nQueue panjang, semua datang back\nTak perlu gimmick, rasa speak loud\nSatu CHO-LEK! sama — tengok semua nod proud\n\nFrom Kuala Lumpur sampai Brunei\nSame reaction bila sambal naik\nDifferent place, same result\nSambal CHO-LEK! — that’s the default\n\n[PRE-CHORUS]\nTak payah hype yang berlebihan\nProduk jalan, itu pegangan\nOne dip only, that’s the move\nAbang CHO-LEK! got nothing to prove\n\n[CHORUS]\nABANG CHO-LEK!\nSAMBAL CHO-LEK!\nPEDAS! PADU!\n\nSEKALI RASA.\nYOU KNOW.\nPEDAS MANIS.\nSTAYS.\n\n[BRIDGE]\nHands up kalau suka pedas\nHands up kalau tak puas\nTak perlu cakap, muka dah cerita\nOne taste, one vibe, satu bahasa\n\n[FINAL CHORUS]\nABANG! (CHO-LEK!)\nSAMBAL! (CHO-LEK!!)\nPEDAS! (PADU!)\n\nSEKALI RASA.\nYOU KNOW.\nPEDAS MANIS.\nSTAYS.\n\n[OUTRO]\nA-BANG… CHO-LEK!\n*Sizzle fade out*",
+    },
   ],
   sop: [
     {

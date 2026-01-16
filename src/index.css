@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Teko:wght@400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -10,10 +10,21 @@
 
 body {
   margin: 0;
-  font-family: "Space Grotesk", "Satoshi", "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #111111;
   background: radial-gradient(circle at top, #ffd86b 0%, #f7b500 45%, #f0a900 100%);
   transition: background-color 0.2s, color 0.2s;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Teko", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 button {
@@ -24,42 +35,4 @@ button {
 .dark body {
   color: #f1f5f9;
   background: #0f172a;
-}
-
-.dark .bg-slate-100 {
-  background-color: #1e293b;
-}
-
-.dark .bg-white {
-  background-color: #1e293b;
-}
-
-.dark .border-slate-200 {
-  border-color: #334155;
-}
-
-.dark .text-slate-900 {
-  color: #f1f5f9;
-}
-
-.dark .text-slate-600,
-.dark .text-slate-500,
-.dark .text-slate-400 {
-  color: #94a3b8;
-}
-
-.dark .hover\:bg-slate-100:hover {
-  background-color: #334155;
-}
-
-.dark input,
-.dark textarea {
-  background-color: #334155;
-  color: #f1f5f9;
-  border-color: #475569;
-}
-
-.dark input:focus,
-.dark textarea:focus {
-  border-color: #fbbf24;
 }

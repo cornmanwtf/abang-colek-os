@@ -1,12 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { presetData } from "./preset";
-import {
-  clearBrandData,
-  loadBrandData,
-  saveBrandData,
-} from "./lib/storage";
+import { BrandProvider, useBrand } from "./context/BrandContext";
 import { searchData, type SearchResult } from "./lib/search";
-import type { BrandOSData, ManifestoVariant } from "./types";
+import type { BrandOSData } from "./types";
 import { Header } from "./components/layout/Header";
 import { Sidebar, type Tab } from "./components/layout/Sidebar";
 import { ContentEditor } from "./components/features/ContentEditor";
@@ -17,10 +12,13 @@ import { BoothOpsView } from "./components/features/BoothOpsView";
 import { TikTokView } from "./components/features/TikTokView";
 import { ReviewsView } from "./components/features/ReviewsView";
 import { DashboardView } from "./components/features/DashboardView";
+import { WocsView } from "./components/features/WocsView";
+import { LuckyDrawView } from "./components/features/LuckyDrawView";
+import { LaunchCampaignView } from "./components/features/LaunchCampaignView";
+import { UserGuideView } from "./components/features/UserGuideView";
+import { MascotLibraryView } from "./components/features/MascotLibraryView";
 
 const DARK_MODE_KEY = "abangColekDarkMode";
-
-const AUTOSAVE_DEBOUNCE_MS = 500;
 
 const buildCopyText = (label: string, content: string) =>
   `${label}\n\n${content}`.trim();
@@ -33,40 +31,29 @@ const buildTaglineText = (data: BrandOSData) => {
   return lines.join("\n");
 };
 
-const createManifestoVariant = (count: number): ManifestoVariant => ({
-  id: `manifesto-${Date.now()}`,
-  title: `Variant ${count}`,
-  content: "",
-});
-
-function App() {
-  const loaded = useMemo(() => loadBrandData(presetData), []);
-  const [data, setData] = useState<BrandOSData>(loaded.data);
-  const [warning, setWarning] = useState<string | null>(loaded.warning);
-  const [lastSavedAt, setLastSavedAt] = useState<number | null>(
-    loaded.updatedAt
-  );
-  const [isSaving, setIsSaving] = useState(false);
+function BrandOS() {
+  const {
+    data,
+    setData,
+    warning,
+    lastSavedAt,
+    isSaving,
+    resetData,
+    hardResetData,
+    importData,
+    addManifesto,
+    removeManifesto,
+  } = useBrand();
 
   const [activeTab, setActiveTab] = useState<Tab>("Deck");
-  const [selectedDeckId, setSelectedDeckId] = useState(
-    loaded.data.deck[0]?.id ?? ""
-  );
-  const [selectedSongId, setSelectedSongId] = useState(
-    loaded.data.song[0]?.id ?? ""
-  );
-  const [selectedSopId, setSelectedSopId] = useState(
-    loaded.data.sop[0]?.id ?? ""
-  );
-  const [selectedManifestoId, setSelectedManifestoId] = useState<string>(
-    "tagline"
-  );
-  const [selectedEventId, setSelectedEventId] = useState(
-    loaded.data.events[0]?.id ?? ""
-  );
-  const [selectedHookId, setSelectedHookId] = useState(
-    loaded.data.hooks[0]?.id ?? ""
-  );
+
+  // Local UI state for selections
+  const [selectedDeckId, setSelectedDeckId] = useState("");
+  const [selectedSongId, setSelectedSongId] = useState("");
+  const [selectedSopId, setSelectedSopId] = useState("");
+  const [selectedManifestoId, setSelectedManifestoId] = useState<string>("tagline");
+  const [selectedEventId, setSelectedEventId] = useState("");
+  const [selectedHookId, setSelectedHookId] = useState("");
 
   const [searchQuery, setSearchQuery] = useState("");
   const searchResults = useMemo(
@@ -74,8 +61,6 @@ function App() {
     [data, searchQuery]
   );
 
-  const isFirstLoad = useRef(true);
-  const saveTimer = useRef<number | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Dark mode state
@@ -83,6 +68,10 @@ function App() {
     const saved = localStorage.getItem(DARK_MODE_KEY);
     return saved === "true";
   });
+
+  const handleToggleDarkMode = () => {
+    setIsDarkMode(prev => !prev);
+  };
 
   // Apply dark mode class to document
   useEffect(() => {
@@ -97,12 +86,10 @@ function App() {
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Ctrl+K or Cmd+K to focus search
       if ((e.ctrlKey || e.metaKey) && e.key === "k") {
         e.preventDefault();
         searchInputRef.current?.focus();
       }
-      // Escape to clear search and blur
       if (e.key === "Escape") {
         setSearchQuery("");
         searchInputRef.current?.blur();
@@ -112,69 +99,57 @@ function App() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  useEffect(() => {
-    if (isFirstLoad.current) {
-      isFirstLoad.current = false;
-      return;
-    }
-    // Defer state update to avoid synchronous render
-    queueMicrotask(() => setIsSaving(true));
-
-    if (saveTimer.current) {
-      window.clearTimeout(saveTimer.current);
-    }
-    saveTimer.current = window.setTimeout(() => {
-      const savedAt = saveBrandData(data);
-      setLastSavedAt(savedAt);
-      setIsSaving(false);
-    }, AUTOSAVE_DEBOUNCE_MS);
-
-    return () => {
-      if (saveTimer.current) {
-        window.clearTimeout(saveTimer.current);
-      }
-    };
-  }, [data]);
+  // Selection safety checks - executed during render or via specific effects cautiously
+  // We use effects here to sync selection if the underlying data disappears
+  // But strictly avoiding the set-state-during-render warning pattern
 
   useEffect(() => {
-    if (!data.deck.find((slide) => slide.id === selectedDeckId)) {
-      queueMicrotask(() => setSelectedDeckId(data.deck[0]?.id ?? ""));
+    if (data.deck.length > 0 && !data.deck.find((slide) => slide.id === selectedDeckId)) {
+      setSelectedDeckId(data.deck[0].id);
+    } else if (data.deck.length === 0 && selectedDeckId !== "") {
+      setSelectedDeckId("");
     }
   }, [data.deck, selectedDeckId]);
 
   useEffect(() => {
-    if (!data.song.find((section) => section.id === selectedSongId)) {
-      queueMicrotask(() => setSelectedSongId(data.song[0]?.id ?? ""));
+    if (data.song.length > 0 && !data.song.find((s) => s.id === selectedSongId)) {
+      setSelectedSongId(data.song[0].id);
+    } else if (data.song.length === 0 && selectedSongId !== "") {
+      setSelectedSongId("");
     }
   }, [data.song, selectedSongId]);
 
   useEffect(() => {
-    if (!data.sop.find((item) => item.id === selectedSopId)) {
-      queueMicrotask(() => setSelectedSopId(data.sop[0]?.id ?? ""));
+    if (data.sop.length > 0 && !data.sop.find((s) => s.id === selectedSopId)) {
+      setSelectedSopId(data.sop[0].id);
+    } else if (data.sop.length === 0 && selectedSopId !== "") {
+      setSelectedSopId("");
     }
   }, [data.sop, selectedSopId]);
 
   useEffect(() => {
-    if (
-      selectedManifestoId !== "tagline" &&
-      !data.manifesto.find((variant) => variant.id === selectedManifestoId)
-    ) {
-      queueMicrotask(() => setSelectedManifestoId("tagline"));
+    if (selectedManifestoId !== "tagline" && !data.manifesto.find((m) => m.id === selectedManifestoId)) {
+      setSelectedManifestoId("tagline");
     }
   }, [data.manifesto, selectedManifestoId]);
 
   useEffect(() => {
-    if (!data.events.find((event) => event.id === selectedEventId)) {
-      queueMicrotask(() => setSelectedEventId(data.events[0]?.id ?? ""));
+    if (data.events.length > 0 && !data.events.find((e) => e.id === selectedEventId)) {
+      setSelectedEventId(data.events[0].id);
+    } else if (data.events.length === 0 && selectedEventId !== "") {
+      setSelectedEventId("");
     }
   }, [data.events, selectedEventId]);
 
   useEffect(() => {
-    if (!data.hooks.find((hook) => hook.id === selectedHookId)) {
-      queueMicrotask(() => setSelectedHookId(data.hooks[0]?.id ?? ""));
+    if (data.hooks.length > 0 && !data.hooks.find((h) => h.id === selectedHookId)) {
+      setSelectedHookId(data.hooks[0].id);
+    } else if (data.hooks.length === 0 && selectedHookId !== "") {
+      setSelectedHookId("");
     }
   }, [data.hooks, selectedHookId]);
 
+  // Derived selected items
   const selectedDeck = data.deck.find((slide) => slide.id === selectedDeckId);
   const selectedSong = data.song.find((section) => section.id === selectedSongId);
   const selectedSop = data.sop.find((item) => item.id === selectedSopId);
@@ -267,46 +242,17 @@ function App() {
     await navigator.clipboard.writeText(text);
   };
 
-  const handleResetPreset = () => {
-    setData(presetData);
-    setWarning(null);
+  const handleAddBtn = () => {
+    addManifesto();
+    // Auto-select the new manifesto is tricky without knowing its ID synchronously
+    // but in the context we generate ID.
+    // For now, we rely on user clicking it, or we could improve the context to return the ID.
   };
 
-  const handleHardReset = () => {
-    clearBrandData();
-    setData(presetData);
-    setWarning(null);
-    setLastSavedAt(null);
-  };
-
-  const handleAddManifesto = () => {
-    setData((prev) => {
-      const next = createManifestoVariant(prev.manifesto.length + 1);
-      setSelectedManifestoId(next.id);
-      return { ...prev, manifesto: [...prev.manifesto, next] };
-    });
-  };
-
-  const handleRemoveManifesto = () => {
+  const handleRemoveBtn = () => {
     if (selectedManifestoId === "tagline") return;
-    setData((prev) => {
-      const filtered = prev.manifesto.filter(
-        (variant) => variant.id !== selectedManifestoId
-      );
-      const nextId = filtered[0]?.id ?? "tagline";
-      setSelectedManifestoId(nextId);
-      return { ...prev, manifesto: filtered };
-    });
-  };
-
-  const handleToggleDarkMode = () => {
-    setIsDarkMode((prev) => !prev);
-  };
-
-  const handleImportData = (importedData: BrandOSData) => {
-    setData(importedData);
-    setWarning(null);
-  };
+    removeManifesto(selectedManifestoId, (nextId) => setSelectedManifestoId(nextId));
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#f7b500] via-[#ffd86b] to-[#fff1b8] text-[#111111]">
@@ -317,11 +263,11 @@ function App() {
         setSearchQuery={setSearchQuery}
         searchResults={searchResults}
         onSearchNavigate={handleSearchNavigate}
-        onReset={handleResetPreset}
-        onHardReset={handleHardReset}
+        onReset={resetData}
+        onHardReset={hardResetData}
         isDarkMode={isDarkMode}
         onToggleDarkMode={handleToggleDarkMode}
-        onImportData={handleImportData}
+        onImportData={importData}
         searchInputRef={searchInputRef}
       />
 
@@ -343,6 +289,11 @@ function App() {
             "TikTok",
             "Reviews",
             "Dashboard",
+            "WOCS",
+            "Marketing",
+            "Launch",
+            "Guide",
+            "Assets",
             "Exports",
           ] as Tab[]).map((tab) => (
             <button
@@ -370,8 +321,8 @@ function App() {
             setSelectedSopId={setSelectedSopId}
             selectedManifestoId={selectedManifestoId}
             setSelectedManifestoId={setSelectedManifestoId}
-            onAddManifesto={handleAddManifesto}
-            onRemoveManifesto={handleRemoveManifesto}
+            onAddManifesto={handleAddBtn}
+            onRemoveManifesto={handleRemoveBtn}
             selectedEventId={selectedEventId}
             setSelectedEventId={setSelectedEventId}
             selectedHookId={selectedHookId}
@@ -469,11 +420,38 @@ function App() {
             {activeTab === "Dashboard" && (
               <DashboardView data={data} selectedEvent={selectedEvent} />
             )}
+
+            {activeTab === "WOCS" && (
+              <WocsView data={data} />
+            )}
+
+            {activeTab === "Marketing" && (
+              <LuckyDrawView data={data} setData={setData} />
+            )}
+
+            {activeTab === "Launch" && (
+              <LaunchCampaignView data={data} setData={setData} />
+            )}
+
+            {activeTab === "Guide" && (
+              <UserGuideView data={data} />
+            )}
+
+            {activeTab === "Assets" && (
+              <MascotLibraryView />
+            )}
           </main>
         </div>
       </div>
     </div>
   );
+}
+function App() {
+  return (
+    <BrandProvider>
+      <BrandOS />
+    </BrandProvider>
+  )
 }
 
 export default App;

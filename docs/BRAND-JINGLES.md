@@ -42,7 +42,13 @@
 | **Genre** | Malaysian pop + hip-hop fusion | Target audience preference (18-35) |
 | **Mood** | Upbeat, confident, playful | Reflects brand personality |
 | **Vocals** | Male lead + female hook | Broad appeal, memorable |
-| **Instruments** | Tropical + bass-heavy | Modern, trendy sound |
+| **Instruments** | Tight 808s, crisp percussion, minimal synth | Clarity and punch |
+
+### 1.3 Master Production Style
+
+> "Punchy, confident chant hook kicks off instantly, layered over tight 808s and crisp percussion at chosen BPM range. Dominant vocals leap between Malay and English in short, hyped phrases. Minimal synth lines and bass stay sparse for clarity. Arrangement maximizes repetition for looping, with brief transitional FX and breaks to sustain momentum. Every element reinforces an anthem feel—energetic, infectious, primed for social and live use."
+
+**Reference Track:** [Kasi-Lagi-Lagi.mp3](/audio/Kasi-Lagi-Lagi.mp3) (Located in `public/audio/`)
 
 ### 1.3 Audio Logo Specification
 
@@ -262,131 +268,85 @@ SONG STRUCTURE: "PEDAS GILA"
 
 ### 5.2 Lyrical Content by Section
 
-#### INTRO (8s)
+#### INTRO
 
-```text
-*Sizzle + beat drop*
-Yo, Abang Colek in the building!
-Liurleleh House, represent!
-```
+*Sizzle*
+Yeah…
+Abang CHO-LEK!
 
-**Rationale:**
+#### VERSE 1
 
-- "In the building" = hip-hop convention
-- Liurleleh House credit = corporate identity
+Dari satu CHO-LEK!, terus naik nama
+Sambal CHO-LEK! hit different, yeah you feel the flame
+Sekali rasa, terus lock that flow
+Tak perlu explain panjang, you already know
 
-#### VERSE 1 (20s) - Origin & Product
+**PRE-CHORUS**
+Mata berair tapi senyum jalan
+Pedas naik, tangan tetap makan
+That flavour linger, stuck in your mind
+Abang CHO-LEK!, one of a kind
 
-```text
-Dari dapur rumah sampai ke bazaar
-Sambal paling gempak, tak sama yang lain
-Jumbo Colek dalam tangan
-Lepak santai, rasa padu sedap sangat
+**CHORUS**
+ABANG CHO-LEK!
+SAMBAL CHO-LEK!
+PEDAS! PADU!
 
-Bawang, cili, resepi rahsia
-Sekali rasa, terus nak lagi
-Bukan plastik, bukan fake
-Abang Colek - keeping it real!
-```
+SEKALI RASA.
+YOU KNOW.
+PEDAS MANIS.
+STAYS.
 
-**Lyric-to-Brand Mapping:**
+#### VERSE 2
 
-| Line | Brand Reference | Purpose |
-| ---- | --------------- | ------- |
-| "Dari dapur rumah" | Humble origins | Authenticity |
-| "Jumbo Colek" | Product name | Product awareness |
-| "Bawang, cili" | Ingredients | Transparency |
-| "resepi rahsia" | Secret recipe | Exclusivity |
-| "keeping it real" | Personality | Street cred |
+Event penuh, booth kita pack
+Queue panjang, semua datang back
+Tak perlu gimmick, rasa speak loud
+Satu CHO-LEK! sama — tengok semua nod proud
 
-#### PRE-CHORUS (8s)
+From Kuala Lumpur sampai Brunei
+Same reaction bila sambal naik
+Different place, same result
+Sambal CHO-LEK! — that’s the default
 
-```text
-Tengok tu, mata dah berair
-Tapi bibir tak boleh berhenti
-Ini bukan sebarang sambal
-Ini ABANG COLEK, legendary!
-```
+**PRE-CHORUS**
+Tak payah hype yang berlebihan
+Produk jalan, itu pegangan
+One dip only, that’s the move
+Abang CHO-LEK! got nothing to prove
 
-**Rationale:**
+**CHORUS**
+ABANG CHO-LEK!
+SAMBAL CHO-LEK!
+PEDAS! PADU!
 
-- Physical reaction description (mata berair)
-- Addictive quality (tak boleh berhenti)
-- Differentiation (bukan sebarang)
-- Status claim (legendary)
+SEKALI RASA.
+YOU KNOW.
+PEDAS MANIS.
+STAYS.
 
-#### CHORUS (16s)
+#### BRIDGE
 
-```text
-ABANG COLEK! (Hey hey!)
-Rasa padu, pedas menggamit! (Woo!)
-ABANG COLEK! (Let's go!)
-Colek sampai licin, tak boleh resist!
+Hands up kalau suka pedas
+Hands up kalau tak puas
+Tak perlu cakap, muka dah cerita
+One taste, one vibe, satu bahasa
 
-Pedas gila, pedas gila!
-Tapi kita terus makan!
-Pedas gila, pedas gila!
-ABANG COLEK number one!
-```
+#### FINAL CHORUS
 
-**Chorus Design Principles:**
+ABANG! (CHO-LEK!)
+SAMBAL! (CHO-LEK!!)
+PEDAS! (PADU!)
 
-| Element | Implementation | Reason |
-| ------- | -------------- | ------ |
-| Brand name repetition | 4x in chorus | Maximum recall |
-| Tagline inclusion | Full tagline | Brand consistency |
-| Call-and-response | (Hey hey!) (Woo!) | Audience participation |
-| Contradiction | "Pedas gila, tapi terus makan" | Memorable paradox |
-| Claim | "Number one" | Confidence/positioning |
+SEKALI RASA.
+YOU KNOW.
+PEDAS MANIS.
+STAYS.
 
-#### VERSE 2 (20s) - Lifestyle & Culture
+#### OUTRO
 
-```text
-Dekat event, booth kita pack
-Customer queue sampai belakang
-iPhone cabutan, hadiah grand
-Tapi sambal kita yang champion
-
-Street culture, hypebeast flow
-MCM jacket, Timbs on my feet (Abang Colek style!)
-Blue skin mascot, you know the deal
-Liurleleh House, we keeping it real!
-```
-
-**Lyric-to-Brand Mapping:**
-
-| Line | Brand Reference | Source |
-| ---- | --------------- | ------ |
-| "event, booth kita pack" | Event focus | PRD.md |
-| "iPhone cabutan" | Lucky draw prize | Lucky-Draw-Campaign.md |
-| "Street culture, hypebeast" | Target audience | BRANDKIT.md Section 8 |
-| "MCM jacket" | Mascot outfit | BRANDKIT.md Section 3 |
-| "Timbs" | Mascot boots | BRANDKIT.md Section 3 |
-| "Blue skin mascot" | Mascot description | BRANDKIT.md Section 3 |
-
-#### BRIDGE (12s) - Regional Expansion
-
-```text
-Malaysia, Brunei, Singapore!
-Kita bawa pedas ke merata!
-Satu rasa, satu keluarga
-ABANG COLEK FAM forever!
-```
-
-**Rationale:**
-
-- Geographic mention = market awareness
-- "Satu keluarga" = community building
-- "FAM" = modern slang for family/community
-
-#### OUTRO (8s)
-
-```text
-A-BANG... CO-LEK!
-Pedas gila... 
-*sizzle fade out*
-Liurleleh House. 🌶️
-```
+A-BANG… CHO-LEK!
+*Sizzle fade out*
 
 ### 5.3 SUNO Prompt
 
@@ -572,17 +532,17 @@ jingle style, broadcast quality
 **5-Second Hook:**
 
 ```text
-Ultra catchy 5 second hook, Malaysian chant, meme-worthy, 
-punchy beat, 140 BPM, TikTok viral style, food brand, 
-loop-friendly, [specific mood]
+Punchy confident chant hook, tight 808s, crisp percussion, 
+minimal synth, 140 BPM, viral TikTok style, Malay-English phrases, 
+energetic anthem feel, loop-friendly
 ```
 
 **15-Second Jingle:**
 
 ```text
-Malaysian pop jingle, catchy, 15 seconds, upbeat, 
-tropical vibes, sambal brand, male/female vocals, 
-130 BPM, radio-ready, [specific mood]
+Punchy confident chant hook, tight 808s, crisp percussion, 
+Malay-English hyped phrases, minimal synth, 130 BPM, 
+energetic anthem feel, infectious repetition, street food brand
 ```
 
 **30-Second Commercial:**

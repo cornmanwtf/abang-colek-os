@@ -10,7 +10,12 @@ export type Tab =
     | "Booth"
     | "TikTok"
     | "Reviews"
-    | "Dashboard";
+    | "Dashboard"
+    | "WOCS"
+    | "Marketing"
+    | "Launch"
+    | "Guide"
+    | "Assets";
 
 interface SidebarProps {
     activeTab: Tab;
@@ -51,6 +56,27 @@ export function Sidebar({
 }: SidebarProps) {
     return (
         <aside className="rounded-xl border border-black/10 bg-white p-4">
+            {["Marketing", "Launch"].includes(activeTab) && (
+                <div className="space-y-2">
+                    <div className="text-xs font-semibold uppercase tracking-wide text-black/50">
+                        Campaigns
+                    </div>
+                    <div className="space-y-1">
+                        <button
+                            className={`w-full rounded-md px-3 py-2 text-left text-sm ${activeTab === "Marketing" ? "bg-[#111111] text-[#f7b500]" : "text-black/60"}`}
+                        >
+                            <div className="text-xs text-[#e53935]">Active</div>
+                            <div className="font-medium">Lucky Draw</div>
+                        </button>
+                        <button
+                            className={`w-full rounded-md px-3 py-2 text-left text-sm ${activeTab === "Launch" ? "bg-[#111111] text-[#f7b500]" : "text-black/60"}`}
+                        >
+                            <div className="text-xs text-black/40">Upcoming</div>
+                            <div className="font-medium">Launch</div>
+                        </button>
+                    </div>
+                </div>
+            )}
             {activeTab === "Deck" && (
                 <div className="space-y-2">
                     <div className="text-xs font-semibold uppercase tracking-wide text-black/50">

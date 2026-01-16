@@ -1,0 +1,21 @@
+{
+    "name": "Abang Colek Brand OS",
+    "short_name": "BrandOS",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#f7b500",
+    "theme_color": "#e53935",
+    "description": "Founder Suite for Abang Colek - Events, TikTok, & Ops.",
+    "icons": [
+        {
+            "src": "/vite.svg",
+            "sizes": "192x192",
+            "type": "image/svg+xml"
+        },
+        {
+            "src": "/vite.svg",
+            "sizes": "512x512",
+            "type": "image/svg+xml"
+        }
+    ]
+}
