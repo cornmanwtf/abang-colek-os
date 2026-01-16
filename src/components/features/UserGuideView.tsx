@@ -92,7 +92,7 @@ export function UserGuideView({ data }: UserGuideViewProps) {
                             <div className="border hover:border-brand-gold p-4 rounded-lg transition-colors">
                                 <h4 className="font-bold">Lucky Draw System</h4>
                                 <p className="text-sm text-black/60">
-                                    1. Open <strong>Marketing > Lucky Draw</strong>.<br />
+                                    1. Open <strong>Marketing &gt; Lucky Draw</strong>.<br />
                                     2. Show QR code to customers to join.<br />
                                     3. Go to "DRAW" tab and click the button to pick a winner live.
                                 </p>
