@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { BrandOSData, BoothChecklist, Event, EventStatus, PostEventReview, EventPnL, Logistics } from "../../types";
+import type { BrandOSData, BoothChecklist, Event, EventStatus, PostEventReview } from "../../types";
 
 interface EventsViewProps {
   data: BrandOSData;
@@ -108,7 +108,7 @@ export function EventsView({
     setSelectedEventId(next.id);
   };
 
-  const handleQuickSetup = () => {
+  const _handleQuickSetup = () => {
     const next = createEvent(data.events.length + 1);
     const checklist = createDefaultChecklist(next.id);
     const plan = createDefaultPlan(next.id);

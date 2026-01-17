@@ -68,9 +68,8 @@ export function BoothOpsView({
     }));
   };
 
-  const handleToggleItem = (id: string, currentDone: boolean) => {
+  const handleToggleItem = (id: string, _currentDone: boolean) => {
     if (!checklist) return;
-    const now = new Date();
     // Logic to toggle
     setData((prev) => ({
       ...prev,

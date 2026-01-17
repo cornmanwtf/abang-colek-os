@@ -14,24 +14,36 @@ describe('Financial Logic', () => {
     it('calculates event financials correctly', () => {
         const events: Event[] = [
             {
-                id: '1', title: 'Event 1', status: 'completed', startDate: '', endDate: '', location: '', type: 'wedding',
+                id: '1',
+                title: 'Event 1',
+                status: 'completed',
+                startDate: '2026-01-01',
+                endDate: '2026-01-01',
+                location: 'KL',
+                region: 'MY',
                 pnl: {
                     revenue: 1000,
                     cogs: 300,
                     expenses: { fee: 50, transport: 50, staff: 100, misc: 0 }
                 },
-                logistics: { prepTime: '', crewCount: 0, vehicleType: 'van', distanceKm: 0 },
-                eoContact: { name: '', role: '', phone: '', email: '', company: '', notes: '' }
+                logistics: { travelDistanceKm: 50, prepDays: 1, crewCount: 2, vehicle: 'van' },
+                eoContact: { name: 'Test', phone: '0123456789', company: 'Test Co' }
             },
             {
-                id: '2', title: 'Event 2', status: 'confirmed', startDate: '', endDate: '', location: '', type: 'corporate',
+                id: '2',
+                title: 'Event 2',
+                status: 'confirmed',
+                startDate: '2026-02-01',
+                endDate: '2026-02-01',
+                location: 'Penang',
+                region: 'MY',
                 pnl: {
                     revenue: 2000,
                     cogs: 500,
                     expenses: { fee: 100, transport: 100, staff: 200, misc: 100 }
                 },
-                logistics: { prepTime: '', crewCount: 0, vehicleType: 'van', distanceKm: 0 },
-                eoContact: { name: '', role: '', phone: '', email: '', company: '', notes: '' }
+                logistics: { travelDistanceKm: 100, prepDays: 2, crewCount: 3, vehicle: 'van' },
+                eoContact: { name: 'Test 2', phone: '0198765432', company: 'Test Co 2' }
             }
         ];
 

@@ -27,6 +27,16 @@
 
 ---
 
+## 🔗 Git Repository
+
+```bash
+git clone https://github.com/thisisniagahub/abang-colek-os.git
+```
+
+> **Repository:** <https://github.com/thisisniagahub/abang-colek-os>
+
+---
+
 ## 📖 Overview
 
 **Abang Colek Brand OS** is a comprehensive, all-in-one business management platform designed specifically for the Abang Colek street food brand. Built with modern web technologies, it provides founders and teams with tools to manage events, content, branding, and operations from a single dashboard.

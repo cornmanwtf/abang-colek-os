@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import QRCode from "react-qr-code";
 import confetti from "canvas-confetti";
 import type { BrandOSData, Participant } from "../../types";

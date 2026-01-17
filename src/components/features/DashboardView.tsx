@@ -1,10 +1,9 @@
 import { useMemo, useState } from "react";
-import type { BrandOSData, Event, Invoice, InvoiceItem } from "../../types";
+import type { BrandOSData, Invoice, InvoiceItem } from "../../types";
 import { calculateEventFinancials, calculateInvoiceTotal } from "../../lib/logic";
 
 interface DashboardViewProps {
   data: BrandOSData;
-  selectedEvent: Event | undefined;
 }
 
 const createInvoice = (eventId: string, eventTitle: string, eoName: string): Invoice => ({

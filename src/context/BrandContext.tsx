@@ -1,9 +1,12 @@
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { presetData } from "../preset";
 import { loadBrandData, saveBrandData, clearBrandData } from "../lib/storage";
+import { syncToCloud, loadFromCloud } from "../lib/sync";
+import type { SyncStatus } from "../lib/sync";
 import type { BrandOSData, ManifestoVariant } from "../types";
 
 const AUTOSAVE_DEBOUNCE_MS = 500;
+const CLOUD_SYNC_DEBOUNCE_MS = 5000; // Sync to cloud every 5s after changes
 
 interface BrandContextType {
     data: BrandOSData;
@@ -11,6 +14,8 @@ interface BrandContextType {
     warning: string | null;
     lastSavedAt: number | null;
     isSaving: boolean;
+    syncStatus: SyncStatus;
+    triggerSync: () => Promise<void>;
     resetData: () => void;
     hardResetData: () => void;
     importData: (data: BrandOSData) => void;
@@ -26,11 +31,37 @@ export function BrandProvider({ children }: { children: React.ReactNode }) {
     const [warning, setWarning] = useState<string | null>(loaded.warning);
     const [lastSavedAt, setLastSavedAt] = useState<number | null>(loaded.updatedAt);
     const [isSaving, setIsSaving] = useState(false);
+    const [syncStatus, setSyncStatus] = useState<SyncStatus>('idle');
 
     const isFirstLoad = useRef(true);
     const saveTimer = useRef<number | null>(null);
+    const cloudSyncTimer = useRef<number | null>(null);
 
-    // Autosave logic
+    // Cloud sync function
+    const triggerSync = async () => {
+        setSyncStatus('syncing');
+        const result = await syncToCloud(data);
+        setSyncStatus(result.status);
+    };
+
+    // Load from cloud on initial load (optional enhancement)
+    useEffect(() => {
+        const checkCloud = async () => {
+            const cloudData = await loadFromCloud();
+            if (cloudData.data && cloudData.updatedAt) {
+                const cloudTime = new Date(cloudData.updatedAt).getTime();
+                if (!lastSavedAt || cloudTime > lastSavedAt) {
+                    setData(cloudData.data);
+                    setLastSavedAt(cloudTime);
+                    setSyncStatus('synced');
+                }
+            }
+        };
+        checkCloud();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); // Only run once on mount
+
+    // Autosave logic with cloud sync
     useEffect(() => {
         if (isFirstLoad.current) {
             isFirstLoad.current = false;
@@ -38,7 +69,7 @@ export function BrandProvider({ children }: { children: React.ReactNode }) {
         }
 
         // Indicate saving start
-        setIsSaving(true); // Direct update is safe here compared to App.tsx complexity
+        setIsSaving(true);
 
         if (saveTimer.current) {
             window.clearTimeout(saveTimer.current);
@@ -50,11 +81,24 @@ export function BrandProvider({ children }: { children: React.ReactNode }) {
             setIsSaving(false);
         }, AUTOSAVE_DEBOUNCE_MS);
 
+        // Schedule cloud sync (debounced longer)
+        if (cloudSyncTimer.current) {
+            window.clearTimeout(cloudSyncTimer.current);
+        }
+
+        cloudSyncTimer.current = window.setTimeout(() => {
+            triggerSync();
+        }, CLOUD_SYNC_DEBOUNCE_MS);
+
         return () => {
             if (saveTimer.current) {
                 window.clearTimeout(saveTimer.current);
             }
+            if (cloudSyncTimer.current) {
+                window.clearTimeout(cloudSyncTimer.current);
+            }
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data]);
 
     const resetData = () => {
@@ -102,6 +146,8 @@ export function BrandProvider({ children }: { children: React.ReactNode }) {
                 warning,
                 lastSavedAt,
                 isSaving,
+                syncStatus,
+                triggerSync,
                 resetData,
                 hardResetData,
                 importData,

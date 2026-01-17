@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import type { BrandOSData } from "../../types";
 
 interface WocsViewProps {
@@ -21,7 +21,7 @@ const MOCK_LOGS: AgentLog[] = [
     { id: "3", timestamp: new Date(Date.now() - 60000).toISOString(), agent: "ANALYTICS", message: "Weekly report generated. Profit margin stable at 35%.", type: "INFO" },
 ];
 
-export function WocsView({ data }: WocsViewProps) {
+export function WocsView({ data: _data }: WocsViewProps) {
     const [activeAgent, setActiveAgent] = useState<AgentType | "ALL">("ALL");
     const [logs, setLogs] = useState<AgentLog[]>(MOCK_LOGS);
     const [isProcessing, setIsProcessing] = useState(false);
@@ -125,13 +125,13 @@ export function WocsView({ data }: WocsViewProps) {
                             <div key={log.id} className="flex gap-3">
                                 <span className="text-gray-500 shrink-0">[{new Date(log.timestamp).toLocaleTimeString()}]</span>
                                 <span className={`font-bold shrink-0 w-24 ${log.agent === 'ADMIN' ? 'text-blue-400' :
-                                        log.agent === 'CONTENT' ? 'text-purple-400' : 'text-yellow-400'
+                                    log.agent === 'CONTENT' ? 'text-purple-400' : 'text-yellow-400'
                                     }`}>
                                     {log.agent}:
                                 </span>
                                 <span className={`${log.type === 'SUCCESS' ? 'text-green-400' :
-                                        log.type === 'WARNING' ? 'text-orange-400' :
-                                            log.type === 'ERROR' ? 'text-red-400' : 'text-gray-300'
+                                    log.type === 'WARNING' ? 'text-orange-400' :
+                                        log.type === 'ERROR' ? 'text-red-400' : 'text-gray-300'
                                     }`}>
                                     {log.message}
                                 </span>

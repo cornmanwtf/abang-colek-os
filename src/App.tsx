@@ -418,7 +418,7 @@ function BrandOS() {
             )}
 
             {activeTab === "Dashboard" && (
-              <DashboardView data={data} selectedEvent={selectedEvent} />
+              <DashboardView data={data} setData={setData} />
             )}
 
             {activeTab === "WOCS" && (

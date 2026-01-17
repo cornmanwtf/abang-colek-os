@@ -42,6 +42,8 @@ const normalizeData = (data: Partial<BrandOSData>, fallback: BrandOSData): Brand
   postEventReviews: Array.isArray(data.postEventReviews)
     ? data.postEventReviews
     : fallback.postEventReviews,
+  invoices: Array.isArray(data.invoices) ? data.invoices : fallback.invoices,
+  participants: Array.isArray(data.participants) ? data.participants : fallback.participants,
 });
 
 export const loadBrandData = (fallback: BrandOSData): LoadResult => {

@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import type { BrandOSData, ContentPlan, HookTemplate, Event } from "../../types";
+import type { BrandOSData, ContentPlan, HookTemplate } from "../../types";
 import { SCRIPT_TEMPLATES, generateManifesto } from "../../lib/generators";
 
 interface TikTokViewProps {
